@@ -7,11 +7,14 @@ import ManageCategory from "./pages/ManageCategory/ManageCategory";
 import ManageUsers from "./pages/ManageUsers/ManageUsers";
 import ManageItems from "./pages/ManageItems/ManageItems";
 import Explore from "./pages/Explore/Explore";
+import { Toaster } from 'react-hot-toast';
+
 
 function App() {
     return (
         <>
             <Menubar/>
+            <Toaster />
             <Routes>
                 <Route path={"/dashboard"} element={<Dashboard/>}/>
                 <Route path={"/category"} element={<ManageCategory/>}/>
