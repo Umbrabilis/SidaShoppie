@@ -5,14 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserRequest {
+public class ItemRequest {
 
     private String name;
-    private String email;
-    private String password;
-    private String role;
+    private BigDecimal price;
+    private String categoryId;
+    private String description;
 }
