@@ -10,13 +10,25 @@ export const AppContextProvider = (props) => {
     const [itemData, setItemData] = useState([]);
     const [auth, setAuth] = useState({token: null, role: null});
     const [cartItems, setCartItems] = useState([]);
-    const addToCart = (itemId) => {
+
+    const addToCart = (item) => {
         const existingItems = cartItems.find(cartItem => cartItem.name === item.name);
         if(existingItems) {
             setCartItems(cartItems.map((cartItem) => cartItem.name === item.name ? {...cartItem, quantity: cartItem.quantity + 1} : cartItem));
         } else{
             setCartItems([...cartItems, {...item, quantity: 1}]);
         }
+    }
+
+    const removeFromCart = (itemId) => {
+        setCartItems(cartItems.filter(item => item.itemId !== itemId));
+
+    }
+
+    const updateQuantity = (itemId, newQuantity) => {
+        setCartItems(cartItems.map(item =>
+            item.itemId === itemId ? {...item, quantity: newQuantity} : item
+        ));
     }
 
     useEffect(() => {
@@ -48,6 +60,8 @@ export const AppContextProvider = (props) => {
         setItemData,
         addToCart,
         cartItems,
+        removeFromCart,
+        updateQuantity,
     }
 
     return <AppContext.Provider value={contextValue}>

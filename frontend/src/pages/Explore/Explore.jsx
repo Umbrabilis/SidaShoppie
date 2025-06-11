@@ -40,7 +40,12 @@ const Explore = () => {
                     <CartItems/>
                 </div>
                 <div className="cart-summary-container" style={{height: '30%'}}>
-                    <CartSummary/>
+                    <CartSummary
+                        customerName={customerName}
+                        setCustomerName={setCustomerName}
+                        mobileNumber={mobileNumber}
+                        setMobileNumber={setMobileNumber}
+                    />
                 </div>
             </div>
 

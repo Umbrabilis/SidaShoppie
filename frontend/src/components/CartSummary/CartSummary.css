@@ -1,0 +1,21 @@
+/* Ajustes adicionales para optimizar espacio manteniendo Bootstrap */
+.cart-summary-details {
+    font-size: 13px;
+}
+
+/* Reducir tamaño de texto si es necesario */
+.small {
+    font-size: 12px !important;
+}
+
+/* Ajustar botones pequeños si necesitas más espacio */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+/* Ajuste de gaps más pequeños si es necesario */
+.gap-2 {
+    gap: 0.5rem !important;
+}
