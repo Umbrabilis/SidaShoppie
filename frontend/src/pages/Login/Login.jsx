@@ -66,8 +66,8 @@ const Login = () => {
                                 <input type="password" name={"password"} id={"password"} placeholder={"**********"} className={"form-control"} onChange={onChangeHandler} value={data.password}/>
                             </div>
                             <div className={"d-grid"}>
-                                <button type={"submit"} className={"btn btn-dark btn-lg"}>
-                                    Ingresar
+                                <button type={"submit"} className={"btn btn-dark btn-lg"} disabled={loading}>
+                                    {loading ? "Cargando..." : "Iniciar Sesión"}
                                 </button>
                             </div>
                         </form>
