@@ -1,8 +1,20 @@
 import './Menubar.css';
 import {assets} from "../../assets/assets";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {AppContext} from "../../context/AppContext";
+import {useContext} from "react";
 
 const Menubar = () => {
+
+    const navigate = useNavigate();
+    const{setAuthData} = useContext(AppContext);
+    const logout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        setAuthData(null, null);
+        navigate("/login");
+    }
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-2">
             <a className="navbar-brand" href="#">
@@ -30,6 +42,29 @@ const Menubar = () => {
                     </li>
                 </ul>
                 {/*Add the dropdown for user profile*/}
+                <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                    <li className="nav-item dropdown">
+                        <a href="#" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src={assets.profile} alt="" height={32} width={32}/>
+                        </a>
+                        <ul className="dropdown-menu dropdown-menu-end" aria-labelledby={"navbarDropdown"}>
+                            <li>
+                                <a href={"#"} className={"dropdown-item"}>
+                                    Configuracion
+                                </a>
+                                <a href={"#"} className={"dropdown-item"}>
+                                    Registro de Actividad
+                                </a>
+                                <li>
+                                    <hr href={"#"} className={"dropdown-divider"}/>
+                                </li>
+                                <a href={"#"} className={"dropdown-item"} onClick={logout}>
+                                    Salir
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </nav>
     );

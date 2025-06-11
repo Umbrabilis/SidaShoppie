@@ -5,7 +5,7 @@ import {toast} from "react-hot-toast";
 import {addItem} from "../../Service/ItemService";
 
 const ItemForm = () =>{
-    const {categories, setItemData, itemData} = useContext(AppContext);
+    const {categories, setItemData, itemData, setCategories} = useContext(AppContext);
     const [image, setImage] = useState(false);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState({
@@ -34,16 +34,16 @@ const ItemForm = () =>{
             }
             const response = await addItem(formData);
             if(response.status === 200 || response.status === 201 || response.status === 204){
-                if(response.data) {
-                    setItemData([...itemData, response.data]);
-                }
+                setItemData([...itemData, response.data]);
+                setCategories((prevCategories) =>
+                prevCategories.map((category) => category.categoryId === data.categoryId ? {...category, items: category.items + 1} : category));
                 toast.success("Item agregado exitosamente");
                 setData({
                     name: '',
                     categoryId: '',
                     price: '',
                     description: '',
-                });
+                })
                 setImage(false);
             }else{
                 toast.error("Error al agregar el item");
