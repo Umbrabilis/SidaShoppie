@@ -9,6 +9,7 @@ import ManageItems from "./pages/ManageItems/ManageItems";
 import Explore from "./pages/Explore/Explore";
 import Login from "./pages/Login/Login";
 import { Toaster } from 'react-hot-toast';
+import OrderHistory from "./pages/OrderHistory/OrderHistory";
 
 
 function App() {
@@ -24,7 +25,9 @@ function App() {
                 <Route path={"/items"} element={<ManageItems/>}/>
                 <Route path={"/explore"} element={<Explore/>}/>
                 <Route path={"/login"} element={<Login/>}/>
+                <Route path={"/orders"} element={<OrderHistory/>}/>
                 <Route path={"/"} element={<Dashboard/>}/>
+
             </Routes>
         </>
     );

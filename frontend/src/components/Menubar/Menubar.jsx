@@ -1,19 +1,27 @@
 import './Menubar.css';
 import {assets} from "../../assets/assets";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {AppContext} from "../../context/AppContext";
 import {useContext} from "react";
 
 const Menubar = () => {
 
     const navigate = useNavigate();
-    const{setAuthData} = useContext(AppContext);
+    const location = useLocation();
+    const {setAuthData, auth} = useContext(AppContext);
+
     const logout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("role");
         setAuthData(null, null);
         navigate("/login");
     }
+
+    const isActive = (path) => {
+        return location.pathname === path;
+    }
+
+    const isAdmin = auth.role === "ROLE_ADMIN";
 
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-2">
@@ -26,22 +34,30 @@ const Menubar = () => {
             <div className="collapse navbar-collapse p-2" id="navbarNav">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                        <Link className="nav-link" aria-current="page" to={"/dashboard"}>Dashboard</Link>
+                        <Link className={`nav-link ${isActive('/dashboard') ? 'fw-bold text-warning' : ''}`} aria-current="page" to={"/dashboard"}>Dashboard</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link" to={"/explore"}>Explorar</Link>
+                        <Link className={`nav-link ${isActive('/explore') ? 'fw-bold text-warning' : ''}`} to={"/explore"}>Explorar</Link>
                     </li>
+                    {
+                        isAdmin &&(
+                            <>
+                                <li className="nav-item">
+                                    <Link className={`nav-link ${isActive('/items') ? 'fw-bold text-warning' : ''}`} to={"/items"}>Gestionar Items</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className={`nav-link ${isActive('/category') ? 'fw-bold text-warning' : ''}`} to={"/category"}>Gestionar Categorias</Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link className={`nav-link ${isActive('/users') ? 'fw-bold text-warning' : ''}`} to={"/users"}>Gestionar Usuarios</Link>
+                                </li>
+                            </>
+                        )
+                    }
                     <li className="nav-item">
-                        <Link className="nav-link" to={"/items"}>Gestionar Items</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to={"/category"}>Gestionar Categorias</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to={"/users"}>Gestionar Usuarios</Link>
+                        <Link className={`nav-link ${isActive('/orders') ? 'fw-bold text-warning' : ''}`} to={"/orders"}>Historial de Ordenes</Link>
                     </li>
                 </ul>
-                {/*Add the dropdown for user profile*/}
                 <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                     <li className="nav-item dropdown">
                         <a href="#" className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,7 +72,7 @@ const Menubar = () => {
                                     Registro de Actividad
                                 </a>
                                 <li>
-                                    <hr href={"#"} className={"dropdown-divider"}/>
+                                    <hr className={"dropdown-divider"}/>
                                 </li>
                                 <a href={"#"} className={"dropdown-item"} onClick={logout}>
                                     Salir
